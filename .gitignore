@@ -1,1 +1,18 @@
-(css/style.css, index.html, js/contacts.js are all source files - no build artifacts, dependencies, or temp files in the changes)
+```
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+
+# Dependencies
+node_modules/
+```

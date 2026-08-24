@@ -63,6 +63,10 @@
         <div class="submenu-item active" data-subsection="internal" onclick="showContactsSubsection('internal')">Внутренние</div>
         <div class="submenu-item" data-subsection="mobile" onclick="showContactsSubsection('mobile')">Мобильные</div>
       </div>
+      <div class="menu-item" data-section="basket">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+        Корзина
+      </div>
       <div class="menu-item" data-section="admin" onclick="toggleAdminSubmenu()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
         Администрирование
@@ -119,6 +123,192 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" onclick="closeModal('contactItemModal')">Отмена</button>
+        <button type="submit" class="btn">Сохранить</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Client Modal -->
+<div class="modal" id="clientModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="clientModalTitle">Новый клиент</h3>
+      <button class="modal-close" onclick="closeModal('clientModal')">&times;</button>
+    </div>
+    <form onsubmit="saveClient(event)">
+      <input type="hidden" id="clientId">
+      <div class="form-section">
+        <h3>Информация об организации</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Организация *</label>
+            <input type="text" id="orgName" required>
+          </div>
+          <div class="form-group">
+            <label>Город</label>
+            <input type="text" id="orgCity">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Направление</label>
+            <input type="text" id="orgDirection">
+          </div>
+          <div class="form-group">
+            <label>Адрес</label>
+            <input type="text" id="orgAddress">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Телефоны</label>
+            <input type="text" id="orgPhones" placeholder="+7 (___) ___-__-__, ...">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="orgEmails" placeholder="info@company.ru, ...">
+          </div>
+        </div>
+      </div>
+      <div class="form-section">
+        <h3>Контактное лицо</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>ФИО</label>
+            <input type="text" id="contactName">
+          </div>
+          <div class="form-group">
+            <label>Должность</label>
+            <input type="text" id="contactPosition">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Рабочий тел.</label>
+            <input type="text" id="contactPhoneWork">
+          </div>
+          <div class="form-group">
+            <label>Сотовый</label>
+            <input type="text" id="contactPhoneMobile">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="contactEmail">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('clientModal')">Отмена</button>
+        <button type="submit" class="btn">Сохранить</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Contact Modal -->
+<div class="modal" id="contactModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="contactModalTitle">Добавить контактное лицо</h3>
+      <button class="modal-close" onclick="closeModal('contactModal')">&times;</button>
+    </div>
+    <form onsubmit="saveContact(e)">
+      <input type="hidden" id="contactClientId">
+      <input type="hidden" id="editContactIdx">
+      <div class="form-group">
+        <label>ФИО *</label>
+        <input type="text" id="newContactName" required>
+      </div>
+      <div class="form-group">
+        <label>Должность</label>
+        <input type="text" id="newContactPosition">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Рабочий тел.</label>
+          <input type="text" id="newContactPhoneWork">
+        </div>
+        <div class="form-group">
+          <label>Сотовый</label>
+          <input type="text" id="newContactPhoneMobile">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="newContactEmail">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('contactModal')">Отмена</button>
+        <button type="submit" class="btn">Сохранить</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- History Modal -->
+<div class="modal" id="historyModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Добавить запись в историю</h3>
+      <button class="modal-close" onclick="closeModal('historyModal')">&times;</button>
+    </div>
+    <form onsubmit="saveHistory(e)">
+      <input type="hidden" id="historyClientId">
+      <div class="form-group">
+        <label>Тип взаимодействия *</label>
+        <select id="historyType" required>
+          <option value="">— Выберите —</option>
+          <option value="Звонок">Звонок</option>
+          <option value="Встреча">Встреча</option>
+          <option value="Письмо">Письмо</option>
+          <option value="Презентация">Презентация</option>
+          <option value="Договор">Договор</option>
+          <option value="Оплата">Оплата</option>
+          <option value="Другое">Другое</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Контактное лицо</label>
+        <select id="historyContactPerson">
+          <option value="">— Не выбрано —</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Комментарий</label>
+        <textarea id="historyComment" rows="4" placeholder="Опишите результат взаимодействия..."></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('historyModal')">Отмена</button>
+        <button type="submit" class="btn">Сохранить</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Basket Item Modal -->
+<div class="modal" id="basketItemModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="basketItemModalTitle">Добавить в корзину</h3>
+      <button class="modal-close" onclick="closeModal('basketItemModal')">&times;</button>
+    </div>
+    <form onsubmit="saveBasketItem(event)">
+      <input type="hidden" id="basketItemId">
+      <div class="form-group">
+        <label>Название *</label>
+        <input type="text" id="basketItemName" required>
+      </div>
+      <div class="form-group">
+        <label>Дата</label>
+        <input type="date" id="basketItemDate">
+      </div>
+      <div class="form-group">
+        <label>Примечание</label>
+        <textarea id="basketItemNote" rows="4"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('basketItemModal')">Отмена</button>
         <button type="submit" class="btn">Сохранить</button>
       </div>
     </form>
