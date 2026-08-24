@@ -50,10 +50,24 @@ function renderContactsList() {
   list.innerHTML = filtered.map(c => `
     <div class="contact-item">
       <div class="contact-info">
-        <div class="contact-name">${escapeHtml(c.name)}</div>
-        ${c.position ? `<div class="contact-position">${escapeHtml(c.position)}</div>` : ''}
-        ${c.department ? `<div class="contact-position">${escapeHtml(c.department)}</div>` : ''}
-        <div class="contact-number">${escapeHtml(c.number)}</div>
+        <div class="contact-field">
+          <span class="contact-field-label">ФИО</span>
+          <span class="contact-field-value contact-name">${escapeHtml(c.name)}</span>
+        </div>
+        ${c.position ? `
+        <div class="contact-field">
+          <span class="contact-field-label">Должность</span>
+          <span class="contact-field-value contact-position">${escapeHtml(c.position)}</span>
+        </div>` : ''}
+        ${c.department ? `
+        <div class="contact-field">
+          <span class="contact-field-label">Отдел</span>
+          <span class="contact-field-value contact-department">${escapeHtml(c.department)}</span>
+        </div>` : ''}
+        <div class="contact-field">
+          <span class="contact-field-label">Номер</span>
+          <span class="contact-field-value contact-number">${escapeHtml(c.number)}</span>
+        </div>
       </div>
       <div class="contact-actions">
         <button class="btn btn-sm btn-secondary" onclick="editContactItem(${c.id})">Редактировать</button>
