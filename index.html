@@ -8,7 +8,6 @@
 </head>
 <body>
 
-<!-- ===== LOGIN SCREEN ===== -->
 <div class="login-screen" id="loginScreen">
   <div class="login-card">
     <img src="https://avatars.mds.yandex.net/i?id=59709a441721a5e380612fdd93e30472_l-5098586-images-thumbs&n=13" alt="Алвид">
@@ -20,40 +19,68 @@
   </div>
 </div>
 
-<!-- ===== MAIN APP ===== -->
 <div class="app" id="app">
   <div class="sidebar">
     <div class="sidebar-logo">
       <img src="https://avatars.mds.yandex.net/i?id=59709a441721a5e380612fdd93e30472_l-5098586-images-thumbs&n=13" alt="Алвид">
       <span>Алвид</span>
     </div>
+    
+    <div class="currency-rates">
+      <div class="currency-item">
+        <span class="currency-name">USD</span>
+        <span class="currency-value" id="usdRate">—</span>
+      </div>
+      <div class="currency-item">
+        <span class="currency-name">EUR</span>
+        <span class="currency-value" id="eurRate">—</span>
+      </div>
+    </div>
+    
     <div class="menu">
       <div class="menu-item" data-section="orders">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
         Заказы
       </div>
-      <div class="menu-item active" data-section="clients">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      <div class="menu-item" data-section="clients">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
         Клиенты
       </div>
       <div class="menu-item" data-section="tasks">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
         Задачи
       </div>
       <div class="menu-item" data-section="reminders">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
         Напоминания
       </div>
       <div class="menu-item" data-section="contacts" onclick="toggleContactsSubmenu()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/><path d="M2 21v-2a4 4 0 013-3.87M8 3.13a4 4 0 010 7.75"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/><path d="M2 21v-2a4 4 0 013-3.87M8 3.13a4 4 0 010 7.75"/></svg>
         Контакты
-        <svg id="contactsArrow" style="margin-left:auto;width:16px;height:16px;transform:rotate(0deg);transition:transform 0.2s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        <svg id="contactsArrow" style="margin-left:auto;width:14px;height:14px;transform:rotate(0deg);transition:transform 0.2s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="submenu" id="contactsSubmenu">
-        <div class="submenu-item active" data-subsection="internal" onclick="showContactsSubsection('internal')">📞 Внутренние</div>
-        <div class="submenu-item" data-subsection="mobile" onclick="showContactsSubsection('mobile')">📱 Мобильные</div>
+        <div class="submenu-item active" data-subsection="internal" onclick="showContactsSubsection('internal')">Внутренние</div>
+        <div class="submenu-item" data-subsection="mobile" onclick="showContactsSubsection('mobile')">Мобильные</div>
+      </div>
+      <div class="menu-item" data-section="admin" onclick="toggleAdminSubmenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
+        Администрирование
+        <svg id="adminArrow" style="margin-left:auto;width:14px;height:14px;transform:rotate(0deg);transition:transform 0.2s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="submenu" id="adminSubmenu">
+        <div class="submenu-item" data-subsection="stats" onclick="showAdminSubsection('stats')">Статистика</div>
+        <div class="submenu-item" data-subsection="reports" onclick="showAdminSubsection('reports')">Отчеты</div>
+        <div class="submenu-item" data-subsection="users" onclick="showAdminSubsection('users')">Пользователи</div>
       </div>
     </div>
+    
+    <div class="data-actions">
+      <button onclick="exportDatabase()" title="Скачать базу">Экспорт</button>
+      <button onclick="document.getElementById('importFile').click()" title="Загрузить базу">Импорт</button>
+      <input type="file" id="importFile" style="display:none" accept=".json" onchange="importDatabase(event)">
+    </div>
+    
     <div class="user-info">
       <div class="user-avatar">A</div>
       <span>Admin</span>
@@ -61,19 +88,17 @@
     </div>
   </div>
 
-  <div class="main" id="mainContent">
-    <!-- Контент загружается через JS -->
-  </div>
+  <div class="main" id="mainContent"></div>
 </div>
 
-<!-- Подключаем JS модули -->
 <script src="js/data.js"></script>
 <script src="js/storage.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/clients.js"></script>
 <script src="js/contacts.js"></script>
-<script src="js/reminders.js"></script>
 <script src="js/tasks.js"></script>
+<script src="js/reminders.js"></script>
+<script src="js/admin.js"></script>
 <script src="js/app.js"></script>
 
 </body>
