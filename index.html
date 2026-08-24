@@ -91,6 +91,40 @@
   <div class="main" id="mainContent"></div>
 </div>
 
+<!-- Contact Item Modal -->
+<div class="modal" id="contactItemModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="contactItemModalTitle">Добавить контакт</h3>
+      <button class="modal-close" onclick="closeModal('contactItemModal')">&times;</button>
+    </div>
+    <form onsubmit="saveContactItem(event)">
+      <input type="hidden" id="contactItemId">
+      <input type="hidden" id="contactItemType">
+      <div class="form-group">
+        <label>ФИО</label>
+        <input type="text" id="newContactName" required>
+      </div>
+      <div class="form-group">
+        <label>Должность</label>
+        <input type="text" id="newContactPosition">
+      </div>
+      <div class="form-group">
+        <label>Отдел</label>
+        <input type="text" id="newContactDept">
+      </div>
+      <div class="form-group">
+        <label>Номер</label>
+        <input type="text" id="newContactNumber" required>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('contactItemModal')">Отмена</button>
+        <button type="submit" class="btn">Сохранить</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script src="js/data.js"></script>
 <script src="js/storage.js"></script>
 <script src="js/auth.js"></script>

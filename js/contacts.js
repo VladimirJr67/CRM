@@ -1,6 +1,21 @@
 let contacts = [];
 let currentContactsSubsection = 'internal';
 
+// Инициализация контактов из localStorage при загрузке модуля
+(function initContactsModule() {
+  const stored = localStorage.getItem('alvid_crm_contacts');
+  if (stored) {
+    try {
+      contacts = JSON.parse(stored);
+    } catch(e) {
+      contacts = [];
+    }
+  }
+})();
+
+function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>"'"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"':"'&#39;'})[m]); }
+
+
 function renderContacts() {
   const main = document.getElementById('mainContent');
   const filteredContacts = contacts.filter(c => c.type === currentContactsSubsection);
@@ -54,16 +69,14 @@ function renderContactsList() {
           <span class="contact-field-label">ФИО</span>
           <span class="contact-field-value contact-name">${escapeHtml(c.name)}</span>
         </div>
-        ${c.position ? `
         <div class="contact-field">
           <span class="contact-field-label">Должность</span>
-          <span class="contact-field-value contact-position">${escapeHtml(c.position)}</span>
-        </div>` : ''}
-        ${c.department ? `
+          <span class="contact-field-value contact-position">${escapeHtml(c.position || '—')}</span>
+        </div>
         <div class="contact-field">
           <span class="contact-field-label">Отдел</span>
-          <span class="contact-field-value contact-department">${escapeHtml(c.department)}</span>
-        </div>` : ''}
+          <span class="contact-field-value contact-department">${escapeHtml(c.department || '—')}</span>
+        </div>
         <div class="contact-field">
           <span class="contact-field-label">Номер</span>
           <span class="contact-field-value contact-number">${escapeHtml(c.number)}</span>
