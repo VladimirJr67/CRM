@@ -175,6 +175,7 @@ function renderSection(section) {
   } else if (section === 'contacts') { renderContacts(); }
   else if (section === 'tasks') { renderTasks(); }
   else if (section === 'reminders') { renderReminders(); }
+  else if (section === 'basket') { renderBasket(); }
   else if (section === 'admin') { renderAdminStats(); }
   else { main.innerHTML = `<div class="placeholder" style="width:100%"><h2>${section === 'orders' ? 'Заказы' : 'Раздел'}</h2><p>Скоро здесь что-то появится</p></div>`; }
 }
@@ -219,4 +220,123 @@ function showAdminSubsection(subsection) {
 function onTaskClientChange() {
   const clientId = parseInt(document.getElementById('taskClientSelect').value);
   document.getElementById('taskClientId').value = clientId || '';
+}
+
+// Basket functionality
+let basketItems = [];
+
+function renderBasket() {
+  const main = document.getElementById('mainContent');
+  main.innerHTML = `
+    <div class="main-left" style="width:50%">
+      <div class="main-left-header">
+        <div class="main-header"><h1>Корзина</h1><button class="btn" onclick="openBasketItemModal()">Добавить</button></div>
+        <input type="text" class="search-bar" id="basketSearchInput" placeholder="Поиск..." oninput="renderBasketList()">
+      </div>
+      <div class="main-left-content" id="basketListWrap"></div>
+    </div>
+    <div class="main-right" style="width:50%"><div class="main-right-content" id="basketDetailPanel"><div class="placeholder"><h2>Выберите элемент из корзины</h2><p>Кликните на строку в списке слева</p></div></div></div>`;
+  renderBasketList();
+}
+
+function renderBasketList() {
+  const wrap = document.getElementById('basketListWrap');
+  const search = (document.getElementById('basketSearchInput')?.value || '').toLowerCase();
+  const filtered = basketItems.filter(item => !item.deleted && (!search || item.name.toLowerCase().includes(search) || (item.note||'').toLowerCase().includes(search)));
+  
+  if (filtered.length === 0) {
+    wrap.innerHTML = `<div class="empty-state"><p>Корзина пуста</p></div>`;
+    return;
+  }
+  
+  let html = `<table><thead><tr><th>Название</th><th>Дата добавления</th></tr></thead><tbody>`;
+  filtered.forEach((item, idx) => {
+    const realIdx = basketItems.indexOf(item);
+    const dateStr = item.date ? new Date(item.date).toLocaleDateString('ru-RU') : '';
+    html += `<tr onclick="showBasketItem(${realIdx})"><td>${escapeHtml(item.name)}</td><td>${dateStr}</td></tr>`;
+  });
+  html += `</tbody></table>`;
+  wrap.innerHTML = html;
+}
+
+function openBasketItemModal() {
+  document.getElementById('basketItemId').value = '';
+  document.getElementById('basketItemName').value = '';
+  document.getElementById('basketItemNote').value = '';
+  document.getElementById('basketItemDate').value = '';
+  document.getElementById('basketItemModalTitle').textContent = 'Добавить в корзину';
+  document.getElementById('basketItemModal').classList.add('active');
+}
+
+function saveBasketItem(e) {
+  e.preventDefault();
+  const id = document.getElementById('basketItemId').value;
+  const name = document.getElementById('basketItemName').value.trim();
+  const note = document.getElementById('basketItemNote').value.trim();
+  const date = document.getElementById('basketItemDate').value;
+  
+  if (!name) return alert('Введите название');
+  
+  if (id) {
+    const idx = parseInt(id);
+    basketItems[idx] = { ...basketItems[idx], name, note, date };
+  } else {
+    basketItems.push({ name, note, date, deleted: false });
+  }
+  
+  closeModal('basketItemModal');
+  renderBasketList();
+}
+
+function showBasketItem(idx) {
+  const item = basketItems[idx];
+  if (!item) return;
+  
+  const panel = document.getElementById('basketDetailPanel');
+  const dateStr = item.date ? new Date(item.date).toLocaleDateString('ru-RU') : '';
+  
+  panel.innerHTML = `
+    <div class="client-detail active">
+      <div class="detail-header">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <h2>${escapeHtml(item.name)}</h2>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-sm btn-secondary" onclick="editBasketItem(${idx})">Редактировать</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteBasketItem(${idx})">Удалить</button>
+          </div>
+        </div>
+        <div class="meta">Добавлено: ${dateStr}</div>
+      </div>
+      <div class="detail-section">
+        <h3>Примечание</h3>
+        <p style="color:#4b5563;line-height:1.6;">${item.note ? escapeHtml(item.note) : '<em>Нет примечания</em>'}</p>
+      </div>
+    </div>
+  `;
+}
+
+function editBasketItem(idx) {
+  const item = basketItems[idx];
+  document.getElementById('basketItemId').value = idx;
+  document.getElementById('basketItemName').value = item.name;
+  document.getElementById('basketItemNote').value = item.note || '';
+  document.getElementById('basketItemDate').value = item.date || '';
+  document.getElementById('basketItemModalTitle').textContent = 'Редактировать элемент';
+  document.getElementById('basketItemModal').classList.add('active');
+}
+
+function deleteBasketItem(idx) {
+  if (!confirm('Удалить этот элемент из корзины?')) return;
+  basketItems[idx].deleted = true;
+  renderBasketList();
+  document.getElementById('basketDetailPanel').innerHTML = `<div class="placeholder"><h2>Элемент удален</h2><p>Выберите другой элемент или добавьте новый</p></div>`;
+}
+
+function openBasketItemModal() {
+  document.getElementById('basketItemId').value = '';
+  document.getElementById('basketItemName').value = '';
+  document.getElementById('basketItemNote').value = '';
+  document.getElementById('basketItemDate').value = '';
+  document.getElementById('basketItemModalTitle').textContent = 'Добавить в корзину';
+  document.getElementById('basketItemModal').classList.add('active');
 }

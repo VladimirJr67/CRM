@@ -63,6 +63,10 @@
         <div class="submenu-item active" data-subsection="internal" onclick="showContactsSubsection('internal')">Внутренние</div>
         <div class="submenu-item" data-subsection="mobile" onclick="showContactsSubsection('mobile')">Мобильные</div>
       </div>
+      <div class="menu-item" data-section="basket">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+        Корзина
+      </div>
       <div class="menu-item" data-section="admin" onclick="toggleAdminSubmenu()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
         Администрирование
@@ -276,6 +280,35 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" onclick="closeModal('historyModal')">Отмена</button>
+        <button type="submit" class="btn">Сохранить</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Basket Item Modal -->
+<div class="modal" id="basketItemModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="basketItemModalTitle">Добавить в корзину</h3>
+      <button class="modal-close" onclick="closeModal('basketItemModal')">&times;</button>
+    </div>
+    <form onsubmit="saveBasketItem(event)">
+      <input type="hidden" id="basketItemId">
+      <div class="form-group">
+        <label>Название *</label>
+        <input type="text" id="basketItemName" required>
+      </div>
+      <div class="form-group">
+        <label>Дата</label>
+        <input type="date" id="basketItemDate">
+      </div>
+      <div class="form-group">
+        <label>Примечание</label>
+        <textarea id="basketItemNote" rows="4"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('basketItemModal')">Отмена</button>
         <button type="submit" class="btn">Сохранить</button>
       </div>
     </form>
